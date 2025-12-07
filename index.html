@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="description" content="NextByte - 최첨단 AI, 로봇공학, IoT 기술로 미래를 선도하는 기업">
+	<meta name="keywords" content="AI, 로봇공학, IoT, 클라우드, 보안, VR, AR">
+	<title>NextByte - 미래를 선도하는 기술 기업</title>
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="css/style.css" />	
+	<script src="https://kit.fontawesome.com/c47106c6a7.js" crossorigin="anonymous"></script>	
+	<script defer src="js/ie.js"></script>
+	<script defer src="js/main.js"></script>
+</head>
+<body>
+	<!-- 네비게이션 컨트롤 -->
+	<nav class="navigation-controls" aria-label="섹션 네비게이션">
+		<button class="nav-btn active" data-target="0" aria-label="서비스 소개로 이동">
+			<i class="fas fa-microchip"></i>
+		</button>
+		<button class="nav-btn" data-target="1" aria-label="최신 소식으로 이동">
+			<i class="fas fa-newspaper"></i>
+		</button>
+		<button class="nav-btn" data-target="2" aria-label="전문가 팀으로 이동">
+			<i class="fas fa-users"></i>
+		</button>
+		<button class="nav-btn" data-target="3" aria-label="기업 소개로 이동">
+			<i class="fas fa-building"></i>
+		</button>
+		<button class="nav-btn" data-target="4" aria-label="NextByte로 이동">
+			<i class="fas fa-robot"></i>
+		</button>
+		<button class="nav-btn" data-target="5" aria-label="서비스로 이동">
+			<i class="fas fa-concierge-bell"></i>
+		</button>
+		<button class="nav-btn" data-target="6" aria-label="프로모션으로 이동">
+			<i class="fas fa-bullhorn"></i>
+		</button>
+		<button class="nav-btn" data-target="7" aria-label="날씨 정보로 이동">
+			<i class="fas fa-cloud-sun"></i>
+		</button>
+	</nav>
+
+	<!-- 회전 컨트롤 -->
+	<div class="rotation-controls">
+		<button class="control-btn" id="pauseBtn" aria-label="회전 일시정지">
+			<i class="fas fa-pause"></i>
+		</button>
+		<button class="control-btn" id="speedBtn" aria-label="회전 속도 변경">
+			<i class="fas fa-tachometer-alt"></i>
+			<span class="speed-indicator">1x</span>
+		</button>
+	</div>
+
+	<main class="wrap">
+		<video src="img/bg.mp4" loop autoplay muted playsinline></video>
+
+		<section id="circle" role="region" aria-label="3D 회전 콘텐츠">
+			<!-- Face 1: 서비스 소개 -->
+			<article class="face1" data-face="1">
+				<h1>NextByte</h1>	
+				<div class="inner">
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-microchip"></i></p>
+						<h2>AI 솔루션</h2>
+						<p class="description">맞춤형 인공지능 기반 비즈니스 솔루션</p>
+					</div>
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-robot"></i></p>
+						<h2>로봇공학</h2>
+						<p class="description">산업용 자동화 로봇 시스템</p>
+					</div>
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-cloud"></i></p>
+						<h2>클라우드</h2>
+						<p class="description">안정적인 클라우드 인프라</p>
+					</div>
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-shield-alt"></i></p>
+						<h2>보안</h2>
+						<p class="description">엔터프라이즈급 보안 시스템</p>
+					</div>
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-vr-cardboard"></i></p>
+						<h2>VR/AR</h2>
+						<p class="description">몰입형 가상현실 경험</p>
+					</div>
+					<div tabindex="0" role="button">
+						<p><i class="fas fa-network-wired"></i></p>
+						<h2>IoT</h2>
+						<p class="description">사물인터넷 통합 솔루션</p>
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 2: 최신 소식 -->
+			<article class="face2" data-face="2">
+				<h1>최신 소식</h1>	
+				<div class="inner">
+					<div>
+						<span class="badge">NEW</span>
+						<h2>NextByte 뉴스</h2>				
+						<img src="img/pattern.jpg" alt="AI 솔루션 이미지" loading="lazy"/>
+						<h3>차세대 AI 솔루션 출시</h3>
+						<p>NextByte가 혁신적인 AI 기반 비즈니스 솔루션을 출시했습니다. 이번 솔루션은 기업의 디지털 전환을 가속화하고 업무 효율성을 극대화할 수 있습니다. 빅데이터 분석과 머신러닝을 통해 실시간 의사결정을 지원합니다.</p>
+						<a href="#" class="read-more">자세히 보기 <i class="fas fa-arrow-right"></i></a>
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 3: 전문가 팀 -->
+			<article class="face3" data-face="3">
+				<h1>전문가 팀</h1>	
+				<div class="inner">
+					<div>
+						<div class="pic"></div>
+						<div class="con">
+							<h2>김민수 AI 연구소장</h2>
+							<p>스탠포드 대학교 AI 연구소 출신으로 10년간의 딥러닝 연구 경력을 보유하고 있습니다.</p>
+							<div class="social-links">
+								<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+								<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+							</div>
+							<span>2023-01-15</span>
+						</div>
+					</div>
+					<div>
+						<div class="pic"></div>
+						<div class="con">
+							<h2>이지원 로봇공학 팀장</h2>
+							<p>산업용 로봇 시스템 설계 전문가로 다수의 자동화 프로젝트를 성공적으로 이끌었습니다.</p>
+							<div class="social-links">
+								<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+								<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+							</div>
+							<span>2023-03-20</span>
+						</div>
+					</div>
+					<div>
+						<div class="pic"></div>
+						<div class="con">
+							<h2>박서연 보안 책임자</h2>
+							<p>사이버 보안 전문가로서 엔터프라이즈급 보안 시스템 구축 경험이 풍부합니다.</p>
+							<div class="social-links">
+								<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+								<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+							</div>
+							<span>2023-06-10</span>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 4: 기업 소개 -->
+			<article class="face4" data-face="4">
+				<h1>기업 소개</h1>	
+				<div class="inner">
+					<div>
+						<video src="img/intro.mp4" loop controls playsinline></video>
+						<h2>NextByte 비전</h2>
+						<p>NextByte는 최첨단 기술로 미래를 선도하는 기업입니다. AI, 로봇공학, IoT 등 혁신적인 기술을 통해 더 나은 미래를 만들어갑니다.</p>
+					</div>
+					<div>
+						<h2>회사 연혁</h2>
+						<ul class="timeline">
+							<li><strong>2020</strong> - 회사 설립</li>
+							<li><strong>2021</strong> - AI 연구소 설립</li>
+							<li><strong>2022</strong> - 로봇공학 부문 확장</li>
+							<li><strong>2023</strong> - 글로벌 진출</li>
+						</ul>
+						<em>2023.12.01</em>
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 5: NextByte -->
+			<article class="face5" data-face="5">
+				<h1>NextByte</h1>	
+				<div class="inner">
+					<div>
+						<img src="img/tit.png" alt="NextByte 로고">
+						<div class="pic"></div>
+						<img src="img/txt.png" alt="NextByte 설명">
+						<img src="img/btn.png" alt="자세히 보기">
+						<img class="reflection" src="img/reflect.png" alt="반사 효과">
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 6: 서비스 -->
+			<article class="face6" data-face="6">
+				<h1>서비스</h1>	
+				<div class="inner">
+					<div>
+						<i class="fas fa-brain"></i>
+						<div class="con">
+							<h2>AI 컨설팅</h2>
+							<p>맞춤형 AI 솔루션 제공<br>비즈니스 프로세스 최적화</p>
+							<a href="#" class="service-link">상담하기 →</a>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-robot"></i>
+						<div class="con">
+							<h2>로봇 자동화</h2>
+							<p>산업용 로봇 시스템 구축<br>스마트 팩토리 솔루션</p>
+							<a href="#" class="service-link">상담하기 →</a>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-shield-alt"></i>
+						<div class="con">
+							<h2>보안 서비스</h2>
+							<p>엔터프라이즈급 보안 시스템<br>24/7 모니터링</p>
+							<a href="#" class="service-link">상담하기 →</a>
+						</div>
+					</div>
+					<div>
+						<i class="fas fa-headset"></i>
+						<div class="con">
+							<h2>기술 지원</h2>
+							<p>전문 엔지니어의 신속한 지원<br>실시간 문제 해결</p>
+							<a href="#" class="service-link">상담하기 →</a>
+						</div>
+					</div>
+				</div>
+			</article>
+
+			<!-- Face 7: Promotion -->
+			<article class="face7" data-face="7">
+				<h1>Promotion</h1>	
+				<div class="inner">
+					<div>	
+						<div>
+							<video src="img/loop.mp4" loop autoplay muted playsinline></video>
+							<h2>Promote<br> Your<br/> Company</h2>
+							<img src="img/txt2.png" alt="프로모션 텍스트"/>
+							<img src="img/line.png" alt="장식선"/>	
+						</div>
+					</div>		
+				</div>
+			</article>
+
+			<!-- Face 8: Temperature -->
+			<article class="face8" data-face="8">
+				<h1>실시간 날씨</h1>	
+				<div class="inner">
+					<div>	
+						<h2>Weather</h2>
+						<i class="fab fa-mixcloud"></i>	
+						<span class="current-temp">26<em>°</em></span>		
+					</div>
+					<div>	
+						<i class="fas fa-sun"></i>	
+						<h3>Sunny</h3>	
+						<p>Afternoon temperature</p>
+						<h4>23<b>°</b></h4>		
+					</div>
+					<div>	
+						<i class="fas fa-bolt"></i>	
+						<h3>Lightning</h3>	
+						<p>Night temperature</p>
+						<h4>18<b>°</b></h4>			
+					</div>
+				</div>
+			</article>	
+		</section>
+	</main>	
+
+	<!-- 접근성을 위한 키보드 안내 -->
+	<div class="keyboard-help" id="keyboardHelp">
+		<p>키보드 단축키: 스페이스(일시정지), ← → (회전), 1-8 (섹션 이동), S (속도 변경), H (도움말)</p>
+	</div>
+</body>
+</html>

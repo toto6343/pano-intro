@@ -1,0 +1,1592 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+/* ============================================
+   CSS 변수 정의 (고도화된 테마 관리)
+============================================ */
+:root {
+    /* 색상 팔레트 - HSL로 변환하여 더 유연한 색상 관리 */
+    --primary-hue: 180;
+    --primary-sat: 100%;
+    --primary-light: 50%;
+    --primary-color: hsl(var(--primary-hue), var(--primary-sat), var(--primary-light));
+    --primary-dark: hsl(var(--primary-hue), var(--primary-sat), 40%);
+    --primary-light-variant: hsl(var(--primary-hue), var(--primary-sat), 60%);
+    
+    --secondary-hue: 210;
+    --secondary-color: hsl(var(--secondary-hue), 100%, 50%);
+    
+    --accent-hue: 300;
+    --accent-color: hsl(var(--accent-hue), 100%, 50%);
+    
+    /* 텍스트 색상 - 명확한 계층 구조 */
+    --text-primary: hsl(0, 0%, 100%);
+    --text-secondary: hsl(0, 0%, 87%);
+    --text-muted: hsl(0, 0%, 60%);
+    --text-disabled: hsl(0, 0%, 40%);
+    
+    /* 배경색 - 레이어별 구분 */
+    --bg-dark: hsl(0, 0%, 0%);
+    --bg-overlay: hsla(0, 0%, 100%, 0.06);
+    --bg-hover: hsla(0, 0%, 100%, 0.15);
+    --bg-card: hsla(0, 0%, 0%, 0.3);
+    --bg-elevated: hsla(0, 0%, 100%, 0.08);
+    
+    /* 테두리 */
+    --border-light: hsla(0, 0%, 100%, 0.5);
+    --border-primary: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.8);
+    --border-glow: hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.3);
+    --border-radius-sm: 8px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 16px;
+    --border-radius-xl: 20px;
+    --border-radius-full: 9999px;
+    
+    /* 그림자 - 깊이별 구분 */
+    --shadow-sm: 0 2px 8px hsla(0, 0%, 0%, 0.3);
+    --shadow-md: 0 4px 16px hsla(0, 0%, 0%, 0.4);
+    --shadow-lg: 0 8px 32px hsla(0, 0%, 0%, 0.5);
+    --shadow-xl: 0 12px 48px hsla(0, 0%, 0%, 0.6);
+    --shadow-glow: 0 0 20px hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.4);
+    --shadow-glow-strong: 0 0 30px hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.6);
+    --shadow-text: 0 0 10px hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.8);
+    
+    /* 애니메이션 속도 - cubic-bezier 추가 */
+    --transition-fast: 0.2s;
+    --transition-normal: 0.5s;
+    --transition-slow: 0.8s;
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+    
+    /* 간격 시스템 - 일관된 spacing */
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 1.5rem;
+    --space-lg: 2rem;
+    --space-xl: 3rem;
+    --space-2xl: 4rem;
+    
+    /* 큐브 설정 - 반응형 대응 */
+    --cube-width: min(600px, 90vw);
+    --cube-height: min(800px, 80vh);
+    --cube-depth: 764px;
+    
+    /* Z-index 레이어 - 명확한 계층 */
+    --z-base: 1;
+    --z-hover: 10;
+    --z-dropdown: 50;
+    --z-nav: 100;
+    --z-overlay: 500;
+    --z-modal: 1000;
+    --z-toast: 2000;
+    
+    /* 타이포그래피 */
+    --font-primary: "Orbitron", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-secondary: Arial, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 2rem;
+    --font-size-4xl: 3rem;
+}
+
+/* ============================================
+   접근성: 애니메이션 감소 모드
+============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .wrap #circle {
+        animation: none !important;
+    }
+}
+
+/* ============================================
+   리셋 및 기본 스타일
+============================================ */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+a {
+    outline: 0;
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-normal) var(--ease-smooth);
+}
+
+a:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+    border-radius: var(--border-radius-sm);
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 4px;
+}
+
+:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ============================================
+   Body 및 전역 스타일
+============================================ */
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-lg);
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    background: var(--bg-dark);
+    transition: background var(--transition-normal) var(--ease-smooth);
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsla(0, 0%, 0%, 0.3);
+    border-radius: var(--border-radius-sm);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: var(--border-radius-sm);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+::selection {
+    background: var(--primary-color);
+    color: var(--bg-dark);
+    text-shadow: none;
+}
+
+/* ============================================
+   로딩 스피너
+============================================ */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-toast);
+    transition: opacity 0.5s var(--ease-smooth), visibility 0.5s;
+}
+
+.loading-spinner.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--border-glow);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--space-md);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+    color: var(--primary-color);
+    font-size: var(--font-size-lg);
+    letter-spacing: 0.2em;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ============================================
+   네비게이션 컨트롤
+============================================ */
+.navigation-controls {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    z-index: var(--z-nav);
+}
+
+.nav-btn {
+    width: 50px;
+    height: 50px;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-light);
+    border-radius: 50%;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast) var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-color);
+    transform: scale(0);
+    transition: transform var(--transition-fast) var(--ease-smooth);
+    border-radius: 50%;
+}
+
+.nav-btn:hover::before,
+.nav-btn.active::before {
+    transform: scale(1);
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.1);
+}
+
+.nav-btn i {
+    position: relative;
+    z-index: 1;
+    font-size: var(--font-size-lg);
+    transition: color var(--transition-fast);
+}
+
+.nav-btn:hover i,
+.nav-btn.active i {
+    color: var(--bg-dark);
+}
+
+/* ============================================
+   회전 컨트롤
+============================================ */
+.rotation-controls {
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    display: flex;
+    gap: var(--space-sm);
+    z-index: var(--z-nav);
+}
+
+.control-btn {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--bg-overlay);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-full);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    transition: all var(--transition-fast) var(--ease-smooth);
+    font-size: var(--font-size-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.control-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-fast) var(--ease-smooth);
+}
+
+.control-btn:hover::before {
+    transform: scaleX(1);
+}
+
+.control-btn:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+.control-btn i,
+.control-btn .speed-indicator {
+    position: relative;
+    z-index: 1;
+    transition: color var(--transition-fast);
+}
+
+.control-btn:hover i,
+.control-btn:hover .speed-indicator {
+    color: var(--bg-dark);
+}
+
+.control-btn.paused {
+    border-color: var(--accent-color);
+}
+
+.speed-indicator {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: var(--font-size-xs);
+    min-width: 30px;
+    text-align: center;
+}
+
+/* ============================================
+   키보드 도움말
+============================================ */
+.keyboard-help {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-overlay);
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--border-primary);
+    border-radius: var(--border-radius-lg);
+    padding: var(--space-md) var(--space-lg);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    z-index: var(--z-nav);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal) var(--ease-smooth);
+    box-shadow: var(--shadow-glow);
+}
+
+.keyboard-help.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.keyboard-help p {
+    margin: 0;
+    text-align: center;
+}
+
+/* ============================================
+   메인 래퍼
+============================================ */
+.wrap {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    perspective: 1500px;
+    perspective-origin: 50% 50%;
+    box-shadow: inset 0 0 50px hsla(0, 0%, 100%, 0.1);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.wrap > video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.45;
+    filter: brightness(0.7) contrast(1.1);
+    transition: opacity var(--transition-normal) var(--ease-smooth),
+                filter var(--transition-normal) var(--ease-smooth);
+    will-change: opacity, filter;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.wrap:hover > video {
+    opacity: 0.55;
+    filter: brightness(0.8) contrast(1.15);
+}
+
+/* ============================================
+   애니메이션
+============================================ */
+@keyframes rotate3d {
+    0% { transform: rotateY(0deg) rotateX(0deg); }
+    100% { transform: rotateY(360deg) rotateX(0deg); }
+}
+
+@keyframes rotateReverse {
+    0% { transform: rotateY(360deg); }
+    100% { transform: rotateY(0deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* ============================================
+   3D 큐브 컨테이너 (8면체)
+============================================ */
+.wrap #circle {
+    width: var(--cube-width);
+    height: var(--cube-height);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: calc(var(--cube-height) / -2);
+    margin-left: calc(var(--cube-width) / -2);
+    transform-style: preserve-3d;
+    animation: rotate3d linear 40s infinite;
+    transition: animation-play-state var(--transition-normal) var(--ease-smooth);
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.wrap #circle.fast {
+    animation-duration: 20s;
+}
+
+.wrap #circle.slow {
+    animation-duration: 60s;
+}
+
+.wrap #circle.reverse {
+    animation: rotateReverse linear 40s infinite;
+}
+
+/* ============================================
+   8면체 큐브 각 면의 위치 (45도씩 회전)
+============================================ */
+.wrap #circle article {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: all var(--transition-normal) var(--ease-smooth);
+    will-change: transform;
+}
+
+/* Face 1 - 앞면 (0도) */
+.wrap #circle .face1 {
+    transform: rotateY(0deg) translateZ(382px);
+}
+
+/* Face 2 - 45도 */
+.wrap #circle .face2 {
+    transform: rotateY(45deg) translateZ(382px);
+}
+
+/* Face 3 - 90도 */
+.wrap #circle .face3 {
+    transform: rotateY(90deg) translateZ(382px);
+}
+
+/* Face 4 - 135도 */
+.wrap #circle .face4 {
+    transform: rotateY(135deg) translateZ(382px);
+}
+
+/* Face 5 - 180도 */
+.wrap #circle .face5 {
+    transform: rotateY(180deg) translateZ(382px);
+}
+
+/* Face 6 - 225도 */
+.wrap #circle .face6 {
+    transform: rotateY(225deg) translateZ(382px);
+}
+
+/* Face 7 - 270도 */
+.wrap #circle .face7 {
+    transform: rotateY(270deg) translateZ(382px);
+}
+
+/* Face 8 - 315도 */
+.wrap #circle .face8 {
+    transform: rotateY(315deg) translateZ(382px);
+}
+
+/* ============================================
+   Article 공통 스타일
+============================================ */
+.wrap #circle article h1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: clamp(24px, 5vw, 32px);
+    font-weight: 900;
+    opacity: 0;
+    transition: all var(--transition-slow) var(--ease-bounce);
+    text-shadow: var(--shadow-text);
+    color: var(--primary-color);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: var(--z-hover);
+    filter: drop-shadow(0 0 10px var(--primary-color));
+}
+
+.wrap #circle article:hover h1 {
+    top: -70px;
+    opacity: 1;
+    animation: float 2s ease-in-out infinite;
+}
+
+.wrap #circle article .inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.wrap #circle article .inner > div {
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--border-light);
+    box-sizing: border-box;
+    background: var(--bg-overlay);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    padding: clamp(30px, 5vw, 50px);
+    position: relative;
+    opacity: 0.75;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all var(--transition-normal) var(--ease-smooth);
+    border-radius: var(--border-radius-md);
+    transform: translateZ(0);
+}
+
+.wrap #circle article .inner > div::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 30%,
+        hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.1) 50%,
+        transparent 70%
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: transform 0.6s var(--ease-smooth);
+    pointer-events: none;
+    will-change: transform;
+}
+
+.wrap #circle article .inner > div:hover::before {
+    animation: shimmer 1.5s infinite;
+}
+
+.wrap #circle article .inner > div::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--border-radius-md);
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color),
+        var(--accent-color)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--transition-normal) var(--ease-smooth);
+    pointer-events: none;
+}
+
+.wrap #circle article .inner > div:hover::after {
+    opacity: 1;
+}
+
+.wrap #circle article .inner > div:hover {
+    background: var(--bg-hover);
+    transform: scale(1.04) translateZ(20px);
+    opacity: 1;
+    box-shadow: var(--shadow-glow-strong);
+    border-color: var(--primary-color);
+}
+
+.wrap #circle article .inner > div h2 {
+    transition: all var(--transition-normal) var(--ease-smooth);
+    font-weight: 700;
+    color: var(--text-primary);
+    position: relative;
+    z-index: var(--z-base);
+    line-height: 1.3;
+}
+
+.wrap #circle article .inner > div:hover h2 {
+    color: var(--primary-color);
+    text-shadow: var(--shadow-text);
+    transform: translateY(-3px);
+}
+
+.wrap #circle article .inner > div i {
+    transition: all var(--transition-normal) var(--ease-smooth);
+    color: var(--text-primary);
+    position: relative;
+    z-index: var(--z-base);
+    display: inline-block;
+}
+
+.wrap #circle article .inner > div:hover i {
+    color: var(--primary-color);
+    text-shadow: var(--shadow-text);
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 0 10px var(--primary-color));
+}
+
+/* ============================================
+   Face 1: 서비스 소개
+============================================ */
+.wrap #circle .face1 .inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+    padding: var(--space-md);
+}
+
+.wrap #circle .face1 .inner > div {
+    width: 100%;
+    height: auto;
+    min-height: 254px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-lg);
+    animation: fadeIn 0.6s var(--ease-smooth) backwards;
+}
+
+.wrap #circle .face1 .inner > div:nth-child(1) { animation-delay: 0.1s; }
+.wrap #circle .face1 .inner > div:nth-child(2) { animation-delay: 0.2s; }
+.wrap #circle .face1 .inner > div:nth-child(3) { animation-delay: 0.3s; }
+.wrap #circle .face1 .inner > div:nth-child(4) { animation-delay: 0.4s; }
+.wrap #circle .face1 .inner > div:nth-child(5) { animation-delay: 0.5s; }
+.wrap #circle .face1 .inner > div:nth-child(6) { animation-delay: 0.6s; }
+
+.wrap #circle .face1 .inner > div p {
+    margin: 0;
+}
+
+.wrap #circle .face1 .inner > div p i {
+    font-size: clamp(60px, 10vw, 100px);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    opacity: 0.75;
+    display: inline-block;
+}
+
+.wrap #circle .face1 .inner > div:hover p i {
+    animation: float 2s ease-in-out infinite;
+    opacity: 1;
+}
+
+.wrap #circle .face1 .inner > div h2 {
+    margin-top: var(--space-md);
+    letter-spacing: 0.1em;
+    font-size: var(--font-size-lg);
+}
+
+.wrap #circle .face1 .inner > div .description {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-sm);
+    font-family: var(--font-secondary);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    line-height: 1.6;
+}
+
+.wrap #circle .face1 .inner > div:hover .description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================
+   Face 2: 최신 소식
+============================================ */
+.wrap #circle .face2 .inner > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    animation: scaleIn 0.8s var(--ease-smooth);
+}
+
+.wrap #circle .face2 .inner > div .badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-primary);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--border-radius-xl);
+    font-size: var(--font-size-xs);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 15px hsla(250, 70%, 60%, 0.4);
+    z-index: var(--z-base);
+    text-transform: uppercase;
+}
+
+.wrap #circle .face2 .inner > div h2 {
+    font-size: var(--font-size-xl);
+    color: var(--primary-color);
+    margin-bottom: var(--space-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.wrap #circle .face2 .inner > div img {
+    width: 100%;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.wrap #circle .face2 .inner > div:hover img {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-lg);
+}
+
+.wrap #circle .face2 .inner > div h3 {
+    color: var(--text-primary);
+    margin-bottom: var(--space-md);
+    font-size: clamp(20px, 4vw, 24px);
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.wrap #circle .face2 .inner > div p {
+    font: var(--font-size-base)/1.6 var(--font-secondary);
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.wrap #circle .face2 .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-top: var(--space-md);
+    padding: var(--space-sm) var(--space-lg);
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius-full);
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    transition: all var(--transition-fast) var(--ease-smooth);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+}
+
+.wrap #circle .face2 .read-more::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-fast) var(--ease-smooth);
+    z-index: -1;
+}
+
+.wrap #circle .face2 .read-more:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.wrap #circle .face2 .read-more:hover {
+    color: var(--bg-dark);
+    transform: translateX(5px);
+    box-shadow: var(--shadow-glow);
+}
+
+.wrap #circle .face2 .read-more i {
+    transition: transform var(--transition-fast) var(--ease-smooth);
+}
+
+.wrap #circle .face2 .read-more:hover i {
+    transform: translateX(5px);
+}
+
+/* ============================================
+   Face 3: 전문가 팀
+============================================ */
+.wrap #circle .face3 .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.wrap #circle .face3 .inner > div {
+    width: 100%;
+    height: auto;
+    min-height: 253px;
+    position: relative;
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    animation: slideInRight 0.8s var(--ease-smooth) backwards;
+}
+
+.wrap #circle .face3 .inner > div:nth-child(1) { animation-delay: 0.1s; }
+.wrap #circle .face3 .inner > div:nth-child(2) { animation-delay: 0.2s; }
+.wrap #circle .face3 .inner > div:nth-child(3) { animation-delay: 0.3s; }
+
+.wrap #circle .face3 .inner > div .pic {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    position: relative;
+    transition: all var(--transition-normal) var(--ease-smooth);
+    box-shadow: 0 5px 20px var(--border-glow);
+}
+
+.wrap #circle .face3 .inner > div .pic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.3) 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-normal) var(--ease-smooth);
+}
+
+.wrap #circle .face3 .inner > div:hover .pic {
+    transform: scale(1.1) rotate(5deg);
+    border-color: var(--text-primary);
+    box-shadow: 0 8px 30px var(--primary-color);
+}
+
+.wrap #circle .face3 .inner > div:hover .pic::before {
+    opacity: 1;
+}
+
+.wrap #circle .face3 .inner > div:nth-of-type(1) .pic {
+    background-image: url(../img/member1.jpg);
+}
+
+.wrap #circle .face3 .inner > div:nth-of-type(2) .pic {
+    background-image: url(../img/member2.jpg);
+}
+
+.wrap #circle .face3 .inner > div:nth-of-type(3) .pic {
+    background-image: url(../img/member3.jpg);
+}
+
+.wrap #circle .face3 .inner > div .con {
+    flex: 1;
+    min-width: 0;
+}
+
+.wrap #circle .face3 .inner > div .con h2 {
+    color: var(--text-primary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+    font-weight: 700;
+}
+
+.wrap #circle .face3 .inner > div .con p {
+    font: var(--font-size-base)/1.5 var(--font-secondary);
+    color: var(--text-secondary);
+    margin-top: var(--space-sm);
+}
+
+.wrap #circle .face3 .social-links {
+    margin-top: var(--space-sm);
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.wrap #circle .face3 .social-links a {
+    width: 36px;
+    height: 36px;
+    border: 2px solid var(--border-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast) var(--ease-smooth);
+    font-size: var(--font-size-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.wrap #circle .face3 .social-links a::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--primary-color);
+    transform: scale(0);
+    transition: transform var(--transition-fast) var(--ease-smooth);
+    border-radius: 50%;
+}
+
+.wrap #circle .face3 .social-links a:hover::before {
+    transform: scale(1);
+}
+
+.wrap #circle .face3 .social-links a:hover {
+    border-color: var(--primary-color);
+    color: var(--bg-dark);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-glow);
+}
+
+.wrap #circle .face3 .social-links a i {
+    position: relative;
+    z-index: 1;
+}
+
+.wrap #circle .face3 .inner > div .con span {
+    position: absolute;
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+    font: var(--font-size-xs)/1 var(--font-primary);
+    color: var(--primary-color);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+}
+
+/* ============================================
+   Face 4: 기업 소개
+============================================ */
+.wrap #circle .face4 .inner > div p {
+    font: var(--font-size-base)/1.6 var(--font-secondary);
+    color: var(--text-muted);
+    margin-top: var(--space-md);
+}
+
+.wrap #circle .face4 .inner > div:nth-of-type(1) {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    margin-bottom: var(--space-md);
+}
+
+.wrap #circle .face4 .inner > div:nth-of-type(1) video {
+    width: 100%;
+    border: 2px solid var(--border-light);
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--space-lg);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 16 / 9;
+}
+
+.wrap #circle .face4 .inner > div:nth-of-type(1):hover video {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-glow);
+}
+
+.wrap #circle .face4 .inner > div:nth-of-type(2) {
+    width: 100%;
+    height: auto;
+}
+
+.wrap #circle .face4 .timeline {
+    margin-top: var(--space-md);
+}
+
+.wrap #circle .face4 .timeline li {
+    padding: var(--space-sm) 0 var(--space-sm) var(--space-md);
+    color: var(--text-secondary);
+    font: var(--font-size-sm)/1.5 var(--font-secondary);
+    border-left: 3px solid var(--primary-color);
+    margin-bottom: var(--space-sm);
+    transition: all var(--transition-fast) var(--ease-smooth);
+    position: relative;
+}
+
+.wrap #circle .face4 .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary-color);
+    transition: all var(--transition-fast) var(--ease-smooth);
+}
+
+.wrap #circle .face4 .timeline li:hover {
+    border-left-color: var(--text-primary);
+    color: var(--text-primary);
+    padding-left: calc(var(--space-md) + 5px);
+}
+
+.wrap #circle .face4 .timeline li:hover::before {
+    width: 16px;
+    height: 16px;
+    left: -9px;
+}
+
+.wrap #circle .face4 .timeline li strong {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.wrap #circle .face4 .inner > div:nth-of-type(2) em {
+    float: right;
+    font-size: var(--font-size-xs);
+    color: var(--primary-color);
+    margin-top: var(--space-md);
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+/* ============================================
+   Face 5: NextByte 메인
+============================================ */
+.wrap #circle .face5 .inner > div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.wrap #circle .face5 .inner div img {
+    margin-bottom: var(--space-xl);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    max-width: 100%;
+    height: auto;
+}
+
+.wrap #circle .face5 .inner div img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 20px var(--primary-color));
+}
+
+.wrap #circle .face5 .inner div .pic {
+    width: 100%;
+    height: 250px;
+    border: 2px solid var(--primary-color);
+    box-sizing: border-box;
+    background: var(--bg-card) url(../img/robot.png) no-repeat center center/cover;
+    margin-bottom: var(--space-xl);
+    border-radius: var(--border-radius-lg);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.wrap #circle .face5 .inner div .pic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        transparent 0%,
+        hsla(var(--primary-hue), var(--primary-sat), var(--primary-light), 0.2) 50%,
+        transparent 100%
+    );
+    opacity: 0;
+    transition: opacity var(--transition-normal) var(--ease-smooth);
+}
+
+.wrap #circle .face5:hover .inner div .pic {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-glow-strong);
+}
+
+.wrap #circle .face5:hover .inner div .pic::before {
+    opacity: 1;
+}
+
+.wrap #circle .face5 .inner div .reflection {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    transition: all 0.8s var(--ease-bounce);
+    opacity: 0.5;
+}
+
+.wrap #circle .face5:hover .inner div .reflection {
+    top: -40%;
+    opacity: 1;
+}
+
+/* ============================================
+   Face 6: 서비스 목록
+============================================ */
+.wrap #circle .face6 .inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.wrap #circle .face6 .inner > div {
+    width: 100%;
+    height: auto;
+    min-height: 185px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    animation: fadeIn 0.6s var(--ease-smooth) backwards;
+}
+
+.wrap #circle .face6 .inner > div:nth-child(1) { animation-delay: 0.1s; }
+.wrap #circle .face6 .inner > div:nth-child(2) { animation-delay: 0.2s; }
+.wrap #circle .face6 .inner > div:nth-child(3) { animation-delay: 0.3s; }
+.wrap #circle .face6 .inner > div:nth-child(4) { animation-delay: 0.4s; }
+
+.wrap #circle .face6 .inner > div i {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    border-right: 2px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(40px, 8vw, 60px);
+    color: var(--text-primary);
+    transition: all var(--transition-normal) var(--ease-smooth);
+}
+
+.wrap #circle .face6 .inner > div:hover i {
+    transform: scale(1.1) rotate(-5deg);
+    color: var(--primary-color);
+}
+
+.wrap #circle .face6 .inner > div .con {
+    flex: 1;
+    min-width: 0;
+}
+
+.wrap #circle .face6 .inner > div .con h2 {
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+}
+
+.wrap #circle .face6 .inner > div .con p {
+    font: var(--font-size-base)/1.5 var(--font-secondary);
+    color: var(--text-muted);
+}
+
+.wrap #circle .face6 .service-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: var(--space-sm);
+    color: var(--primary-color);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    transition: all var(--transition-fast) var(--ease-smooth);
+    gap: var(--space-xs);
+}
+
+.wrap #circle .face6 .service-link:hover {
+    transform: translateX(8px);
+    text-shadow: var(--shadow-text);
+}
+
+/* ============================================
+   Face 7: 프로모션
+============================================ */
+.wrap #circle .face7 .inner > div {
+    width: 100%;
+    height: 100%;
+}
+
+.wrap #circle .face7 .inner > div > div {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    box-sizing: border-box;
+    padding: var(--space-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.wrap #circle .face7 .inner > div > div video {
+    width: auto;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    opacity: 0.8;
+    filter: brightness(0.8) contrast(1.1);
+    transition: all var(--transition-normal) var(--ease-smooth);
+    object-fit: cover;
+}
+
+.wrap #circle .face7 .inner > div:hover > div video {
+    opacity: 0.9;
+    filter: brightness(0.9) contrast(1.15);
+}
+
+.wrap #circle .face7 .inner > div > div h2 {
+    position: absolute;
+    top: 140px;
+    left: var(--space-xl);
+    font-size: clamp(32px, 6vw, 48px);
+    color: var(--text-primary);
+    text-align: left;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    z-index: var(--z-base);
+    animation: fadeIn 1s var(--ease-smooth);
+}
+
+.wrap #circle .face7 .inner > div > div img {
+    position: relative;
+    z-index: var(--z-base);
+    margin-top: var(--space-lg);
+}
+
+/* ============================================
+   Face 8: 날씨 정보
+============================================ */
+.wrap #circle .face8 .inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    padding: var(--space-lg);
+}
+
+.wrap #circle .face8 .inner > div {
+    background: var(--bg-elevated);
+    border-radius: var(--border-radius-md);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: all var(--transition-normal) var(--ease-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.wrap #circle .face8 .inner > div:first-child {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+}
+
+.wrap #circle .face8 .inner > div:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.wrap #circle .face8 .inner > div h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--bg-dark);
+    font-weight: 900;
+    margin-bottom: var(--space-md);
+    text-transform: uppercase;
+}
+
+.wrap #circle .face8 .inner > div h3 {
+    font-size: var(--font-size-xl);
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+    font-weight: 700;
+}
+
+.wrap #circle .face8 .inner > div h4 {
+    font-size: var(--font-size-2xl);
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.wrap #circle .face8 .inner > div p {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    margin: var(--space-sm) 0;
+}
+
+.wrap #circle .face8 .inner > div i {
+    font-size: 80px;
+    color: var(--bg-dark);
+    margin-bottom: var(--space-md);
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+.wrap #circle .face8 .inner > div:not(:first-child) i {
+    color: var(--primary-color);
+    font-size: 60px;
+}
+
+.wrap #circle .face8 .current-temp {
+    font-size: clamp(60px, 10vw, 100px);
+    font-weight: 900;
+    color: var(--bg-dark);
+    line-height: 1;
+}
+
+.wrap #circle .face8 .current-temp em {
+    font-size: 0.5em;
+    font-style: normal;
+}
+
+.wrap #circle .face8 h4 b {
+    font-size: 0.6em;
+    font-weight: normal;
+}
+
+/* ============================================
+   반응형 디자인
+============================================ */
+@media (max-width: 768px) {
+    :root {
+        --cube-width: 90vw;
+        --cube-height: 70vh;
+        --font-size-base: 0.9rem;
+        --space-md: 1rem;
+        --space-lg: 1.5rem;
+    }
+    
+    .navigation-controls {
+        right: 10px;
+        gap: var(--space-xs);
+    }
+    
+    .nav-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .rotation-controls {
+        left: 10px;
+        top: 10px;
+        flex-direction: column;
+    }
+    
+    .control-btn {
+        padding: var(--space-xs) var(--space-sm);
+    }
+    
+    .keyboard-help {
+        bottom: 10px;
+        padding: var(--space-sm);
+        font-size: var(--font-size-xs);
+    }
+    
+    .wrap #circle article h1 {
+        font-size: clamp(20px, 4vw, 28px);
+    }
+    
+    .wrap #circle .face1 .inner {
+        grid-template-columns: 1fr;
+    }
+    
+    .wrap #circle .face3 .inner > div {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .wrap #circle .face3 .social-links {
+        justify-content: center;
+    }
+    
+    .wrap #circle .face6 .inner > div {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .wrap #circle .face6 .inner > div i {
+        border-right: none;
+        border-bottom: 2px solid var(--primary-color);
+    }
+    
+    .wrap #circle .face8 .inner {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .wrap #circle .face8 .inner > div:first-child {
+        grid-column: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --cube-width: 95vw;
+        --cube-height: 60vh;
+        --font-size-base: 0.85rem;
+    }
+    
+    .wrap #circle article .inner > div {
+        padding: var(--space-md);
+    }
+    
+    .wrap #circle .face2 .inner > div .badge {
+        top: var(--space-sm);
+        right: var(--space-sm);
+        padding: 6px 12px;
+        font-size: 10px;
+    }
+}
+
+@media (min-width: 1920px) {
+    :root {
+        --cube-width: 800px;
+        --cube-height: 1000px;
+    }
+}
+
+/* ============================================
+   접근성: 고대비 모드
+============================================ */
+@media (prefers-contrast: high) {
+    :root {
+        --border-light: hsla(0, 0%, 100%, 0.8);
+        --text-secondary: hsl(0, 0%, 95%);
+    }
+    
+    .wrap #circle article .inner > div {
+        border-width: 3px;
+    }
+}
+
+/* ============================================
+   터치 디바이스 최적화
+============================================ */
+@media (hover: none) and (pointer: coarse) {
+    .wrap #circle article .inner > div:hover {
+        transform: none;
+        box-shadow: var(--shadow-md);
+    }
+    
+    button, a {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* ============================================
+   성능 최적화
+============================================ */
+@supports (content-visibility: auto) {
+    .wrap #circle article {
+        content-visibility: auto;
+        contain-intrinsic-size: var(--cube-width) var(--cube-height);
+    }
+}
+
+/* 저품질 모드 */
+.low-quality-mode .wrap > video {
+    filter: blur(5px) brightness(0.7);
+}
+
+.low-quality-mode .wrap #circle article .inner > div::before,
+.low-quality-mode .wrap #circle article .inner > div::after {
+    display: none;
+}
